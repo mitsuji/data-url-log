@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>[Demo4] Data URL Log</title>
+    <script src="./data-url-log.js"></script>
+  </head>
+  <body>
+    <h1>[Demo4] Data URL Log</h1>
+    <div>
+      <canvas id="canvas1" width="400" height="300" style="border: solid 1px red;"></canvas>
+    </div>
+    <form>
+      <label><input type="checkbox" id="checkbox1">show logs</label>
+    </form>
+    <script>
+      window.onload = (event) => {
+          var checkboxHasLog = document.getElementById('checkbox1');
+          var canvas1 = document.getElementById('canvas1');
+          var context = canvas1.getContext('2d');
+          var image = new Image;
+          image.onload = () => {
+              let x = 0;
+              let y = 0;
+              let vx = 2;
+              let vy = 3;
+              setInterval (() => {
+                  context.clearRect(0,0,canvas1.width,canvas1.height);
+                  context.drawImage(image,x,y);
+                  x += vx;
+                  y += vy;
+                  if (x < 0 || 200 < x) {
+                      vx *= -1;
+                  }
+                  if (y < 0 || 130 < y) {
+                      vy *= -1;
+                  }
+                  if (checkboxHasLog.checked) {
+                      consoleLogCanvas(canvas1);
+                  }
+              }, 16);
+          };
+          image.src = "./nas-monkey.png";
+      };
+    </script>
+  </body>
+</html>
