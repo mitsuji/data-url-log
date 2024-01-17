@@ -1,6 +1,6 @@
 # Data URL と console.log への画像出力のデモ
 
-## Data URL の作成 (シェルスクリプト)
+## Data URL のエンコード (シェルスクリプト)
 
 コンソールに出力
 ```
@@ -11,6 +11,13 @@ echo -n "data:image/png;base64," && cat web/nas-monkey.png | base64 --wrap 0
 ```
 echo -n "data:image/png;base64," > out.txt
 cat web/nas-monkey.png | base64 --wrap 0 >> out.txt
+```
+
+## Data URL のデコード (シェルスクリプト)
+
+ファイル に出力
+```
+cat out.txt | sed -E 's/^data:.+;base64,//' | base64 -d > web/nas-monkey_restore.png
 ```
 
 ## デモ
